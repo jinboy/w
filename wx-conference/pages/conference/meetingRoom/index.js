@@ -1,7 +1,8 @@
-import {MeetingRoom} from "../../../model/location/meetingRoom";
-import {InterAction} from "../../../model/interaction/interaction";
-import {Location} from "../../../utils/location";
-
+import {Location} from "../../../utils/native-api/location/Location";
+import {Interaction as InterAction} from "../../../utils/native-api/interaction/Interaction";
+import {MeetingRoomInfo} from "../../../model/conference/MeetingRoomInfo";
+import {Route} from "../../../utils/native-api/route/Route";
+import {MeetingRoom} from "../../../model/conference/meetingRoom";
 
 const app = getApp();
 
@@ -31,7 +32,7 @@ Page({
      * @returns {Promise<void>}
      */
     async chooseLocation() {
-        const location = await Location.chooseLocation();
+        const location = await Location.fnChooseLocation();
         console.log(location);
         if (location) {
             this.setData({
@@ -65,27 +66,16 @@ Page({
      * @returns {Promise<void>}
      */
     async submit(e) {
-        console.log(e);
-        let name = e.detail.value.name;
-        let location = e.detail.value.location;
-        console.log(name);
-        console.log(location);
-        if (app.isNull(name)) {
-            InterAction.fnShowToast('请输入会议室名称', 'none', 2000);
-        } else if (app.isNull(location)) {
-            InterAction.fnShowToast('请到指定地点定位会议室', 'none', 2000);
-        } else {
-            const res = await MeetingRoom.addOrUpdateMeetingRoom(name, location);
-            console.log(res);
-            if (res.code === 1) {
-                InterAction.fnShowToast('编辑会议室成功，请重新点击地点刷新会议室', 'success', 2000);
-                wx.navigateBack({
-                    delta: 1
-                })
-            } else {
-                InterAction.fnShowToast('编辑会议室失败', 'none', 2000);
-            }
-        }
+        const name = e.detail.value.name;
+        const location = e.detail.value.location;
+        const meetingRoomInfo = new MeetingRoomInfo(name, location);
+        if (meetingRoomInfo.dataIntrospection()) {
+            const res = await MeetingRoom.addOrUpdateMeetingRoom(meetingRoomInfo);
+            InterAction.fnShowToast('编辑会议室成功，请重新点击地点刷新会议室', 'success', 2000);
+            setTimeout(() => {
+                Route.fnNavigateBack(1);
+            }, 1500);
 
+        }
     }
 });

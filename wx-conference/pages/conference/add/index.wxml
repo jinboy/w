@@ -33,7 +33,7 @@
                 <view class="flex-column radio-group-container">
                     <radio-group name="radio" class="radio-group" onChange="radioChange">
                         <view class="radio-item-container">
-                            <label class="radio" wx:for="{{meetingRoom}}" wx:key="{{index}}"
+                            <label class="radio" wx:for="{{meetingRoom}}" wx:key="index"
                                    wx:for-index="meetingRoom_index" wx:for-item="meetingRoom_item">
                                 <radio value="{{meetingRoom_item}}" checked="{{item.checked}}"/>
                                 {{meetingRoom_item.name}}

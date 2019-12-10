@@ -1,12 +1,11 @@
-import {
-    Agenda
-} from "../../../model/conference/agenda";
-import {
-    InterAction
-} from "../../../model/interaction/interaction";
-import {
-    MeetingRoom
-} from "../../../model/location/meetingRoom";
+import {Agenda} from "../../../model/conference/Agenda";
+import {Conference} from "../../../model/conference/conference";
+import {AddConferenceInfo} from "../../../model/conference/AddConferenceInfo";
+import {Caching} from "../../../utils/native-api/caching/Caching";
+import {InteractionEnum} from "../../../utils/native-api/interaction/enum/InteractionEnum";
+import {Route} from "../../../utils/native-api/route/Route";
+import {Interaction as InterAction} from "../../../utils/native-api/interaction/Interaction";
+import {MeetingRoom} from "../../../model/conference/meetingRoom";
 
 let dateTimePicker = require('../../../utils/dateTimePicker.js');
 const app = getApp();
@@ -58,7 +57,7 @@ Page({
                 agendaTypeName: '会议议题',
                 agendaContent: [],
                 expanded: false,
-            }, ],
+            },],
         },
 
         isOpen: true, // 默认公开
@@ -112,65 +111,44 @@ Page({
      * 选择会议地点
      * @param e
      */
-    radioChange: function(e) {
+    radioChange: function (e) {
         console.log('你选择的框架是：');
         console.log(e);
         this.setData({
             'conference.roomId': e.detail.value.id,
             'conference.address': e.detail.value.name,
-        })
-        // console.log(e.detail)
-        // console.log(e.detail.value)
-        // console.log('你选择的框架是：');
+        });
     },
 
     /**
      * 发布会议
      * @param e
      */
-    formSubmit(e) {
-
+    async formSubmit(e) {
         console.log('form发生了submit事件，携带数据为：', e.detail.value);
-        let currentUser = Storage.getStorageSyncByKey('currentUser');
+        let currentUser = Caching.getStorageSync('currentUser');
+        console.log('currentUser', currentUser);
+        console.log('currentUser.basicCurrentUserInfo.userid,', currentUser.basicCurrentUserInfo.userid);
         let conference = e.detail.value;
-        conference.orgId = currentUser.orgId;
-        conference.open = conference.isOpen ? 1 : 0;
+        delete conference.radio;
         delete conference.radio;
         // 表单数据内省
-        if (app.isNull(conference.uid)) {
-            InterAction.fnShowToast('未获取到当前用户，请重新打开应用', 'none', 2000, '', false);
-        } else if (app.isNull(conference.theme)) {
-            InterAction.fnShowToast('请输入会议主题', 'none', 2000, '', false);
-        } else if (app.isNull(conference.time)) {
-            InterAction.fnShowToast('请选择会议时间', 'none', 2000, '', false);
-        } else if (app.isNull(conference.address)) {
-            InterAction.fnShowToast('请选择会议地点', 'none', 2000, '', false);
-        } else if (app.isNull(conference.topic)) {
-            InterAction.fnShowToast('请选择会议议题', 'none', 2000, '', false);
-        } else if (app.isNull(conference.info)) {
-            InterAction.fnShowToast('请输入会议内容', 'none', 2000, '', false);
-        } else if (app.isNull(conference.conferee)) {
-            InterAction.fnShowToast('请选择参会人员', 'none', 2000, '', false);
-        } else {
-            wx.request({
-                url: 'https://api.yzcommunity.cn/api/5d8b1812a0cda',
-                method: 'GET',
-                header: {
-                    // 'Content-Type': 'application/json',
-                    'version': 'v3.0',
-                    'access-token': ''
-                },
-                data: conference,
-                success: function(res) {
-                    InterAction.fnShowToast('新增会议成功', 'none', 2000, '', false);
-                    wx.navigateBack({
-                        delta: 1
-                    });
-                },
-                fail: function(res) {
-                    InterAction.fnShowToast('新增会议失败', 'none', 2000, '', false);
-                },
-            });
+        const addConferenceInfo = new AddConferenceInfo(
+            currentUser.basicCurrentUserInfo.userid,
+            conference.theme,
+            conference.address,
+            conference.time,
+            conference.info,
+            conference.conferee,
+            conference.topic,
+            conference.roomId,
+            currentUser.basicCurrentUserInfo.orgId,
+            conference.isOpen ? 1 : 0
+        );
+        if (addConferenceInfo.dataCheck()) {
+            const addConferenceRes = await Conference.addConference(addConferenceInfo);
+            InterAction.fnShowToast('新增成功', InteractionEnum.ICON_SUCCESS, '', InteractionEnum.DURATION, false);
+            await Route.fnNavigateBack(1);
         }
     },
 
@@ -296,19 +274,13 @@ Page({
 
         // 选择会议室
         let meetingRoom = [];
-        wx.showLoading({
-            title: '获取会议室中...'
-        })
+        InterAction.fnShowLoading('加载中...', false);
         const meetingRoomList = await MeetingRoom.getMeetingRoom();
-        if (meetingRoomList.code === 1) {
-            wx.hideLoading();
-            that.setData({
-                meetingRoom: meetingRoomList.data,
-                meetingRoomShow: true
-            })
-        } else {
-            InterAction.fnShowToast('fail', '获取会议室失败！', '2000');
-        }
+        InterAction.fnHideLoading();
+        that.setData({
+            meetingRoom: meetingRoomList,
+            meetingRoomShow: true
+        });
     },
 
     meetingRoom(e) {
@@ -352,12 +324,4 @@ Page({
             isOpen: e.detail.value
         })
     },
-
-    test() {
-        let that = this;
-        that.getAgendaArray();
-        console.log("9999999");
-        app.getUrl('agendaArray');
-        console.log("9999999");
-    }
 });

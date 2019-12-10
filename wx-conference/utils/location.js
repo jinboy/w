@@ -2,7 +2,7 @@
  * 微信版本 位置工具模型
  */
 
-import {promisic} from "./util";
+import {promisic} from "./tabjin-utils/util";
 
 class LocationUtils {
     /**

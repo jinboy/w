@@ -3,7 +3,7 @@
  */
 
 
-import {promisic} from "./util";
+import {promisic} from "./tabjin-utils/util";
 
 class Storage {
     static async setStorage(

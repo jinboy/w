@@ -1,7 +1,8 @@
 // pages/conference/detail/index.js
 import {Conference} from "../../../model/conference/conference";
 import {Storage} from "../../../utils/storage";
-import {InterAction} from "../../../model/interaction/interaction";
+import {InteractionEnum} from "../../../utils/native-api/interaction/enum/InteractionEnum";
+import {Interaction} from "../../../utils/native-api/interaction/Interaction";
 
 const app = getApp();
 Page({
@@ -521,7 +522,7 @@ Page({
         // console.log(currentConference)
 
         if (app.isNull(currentConference)) {// currentConference，提示为获取到当前会议
-            InterAction.fnAlert('抱歉', '未获取到当前会议，请重启应用', '好的');
+            Interaction.fnShowToast('未获取到当前会议，请重启应用', InteractionEnum.ICON_NONE, '', InteractionEnum.DURATION, false);
         } else { //有当前会议信息，绑定当前用户与其参加会议的签到行为
             // 首先判断当前用户是否在参加人员中
 

@@ -2,7 +2,7 @@
  * 党支部业务模型
  */
 import {Storage} from "../../utils/storage";
-import {Http} from "../../utils/http";
+import {Http} from "../../utils/tabjin-utils/http";
 
 class PartyBranch {
     // TODO

@@ -6,7 +6,7 @@
     </view>
 
     <view class="member-container">
-        <block wx:for="{{organizationPartyMember}}" wx:key="{{index}}" wx:for-index="organizationPartyMember_index"
+        <block wx:for="{{organizationPartyMember}}" wx:key="index" wx:for-index="organizationPartyMember_index"
                wx:for-item="organizationPartyMember_item">
             <view class="flex-column single-member" data-singleMember="{{organizationPartyMember_item}}"
                   bind:tap="toSingleMember">

@@ -1,12 +1,12 @@
 <!--components/conference/card/index.wxml-->
 
 <view class="outer-container">
-    <block wx:for="{{conferenceList}}" wx:key="{{index}}">
+    <block wx:for="{{conferenceList}}" wx:key="index">
         <!-- 会议内容 -->
         <view class="card-item" data-conference="{{item}}" bind:tap="toConferenceDetail">
             <view class="conference">
                 <view class="theme">{{item.theme}}</view>
-                <view class="topic" wx:for="{{item.topic}}" wx:key="{{index}}"
+                <view class="topic" wx:for="{{item.topic}}" wx:key="index"
                       wx:for-index="topic_index" wx:for-item="topic_item">
                     <text>议题 : {{topic_item.name}}</text>
                 </view>

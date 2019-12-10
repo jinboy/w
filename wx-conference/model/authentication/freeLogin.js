@@ -1,11 +1,12 @@
 /**
  * 小程序登录 模块
  */
-import {promisic} from "../../utils/util";
-import {urlConstant} from "../../config/urlConstant";
-import {Http} from "../../utils/http";
+import {promisic} from "../../utils/tabjin-utils/util";
+import {Http} from "../../utils/tabjin-utils/http";
 import {Storage} from "../../utils/storage";
-import {InterAction} from "../interaction/interaction";
+import {ApiUrlConstant} from "../../config/ApiUrlConstant";
+import {InteractionEnum} from "../../utils/native-api/interaction/enum/InteractionEnum";
+import {Interaction as InterAction} from "../../utils/native-api/interaction/Interaction";
 
 class FreeLogin {
 
@@ -28,7 +29,7 @@ class FreeLogin {
     static async login() {
         const code = await this._getCode();
         const res = await Http.request({
-            url: urlConstant.login,
+            url: ApiUrlConstant.WX_LOGIN,
             data: {
                 code
             }
@@ -36,7 +37,7 @@ class FreeLogin {
         if (res.code === 1) {
             return res.data;
         } else {
-            InterAction.fnShowToast('抱歉，获取登录凭证失败', 'none', 2000);
+            InterAction.fnShowToast('抱歉，获取登录凭证失败', InteractionEnum.ICON_NONE, '', InteractionEnum.DURATION, false);
             return null;
         }
     }

@@ -1,5 +1,6 @@
 import {promisic} from "./util";
-import {config} from "../config/config";
+import {config} from "../../config/config";
+import {Caching} from "../native-api/caching/Caching";
 
 class Http {
     static async request({
@@ -13,7 +14,14 @@ class Http {
             url: `${config.apiBaseUrl}${url}`,// 因为apiBaseUrl是一个固定的配置
             method,
             // data: Object.assign(data, {orgPid: 1}),
-            data,
+            data: Object.assign(
+                data,
+                {
+                    // orgId: Caching.getStorageSync('orgId') == null ? NaN : Caching.getStorageSync('orgId'),
+                    orgId: 8,
+                    orgPid: config.orgPid
+                }
+            ),
             dataType,
             header: {
                 // 'Content-Type': 'application/json',

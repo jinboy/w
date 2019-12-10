@@ -1,5 +1,10 @@
-import {Http} from "../../utils/http";
-import {InterAction} from "../interaction/interaction";
+/**
+ *
+ */
+import {Http} from "../../utils/tabjin-utils/http";
+import {ApiUrlConstant} from "../../config/ApiUrlConstant";
+import {InteractionEnum} from "../../utils/native-api/interaction/enum/InteractionEnum";
+import {Interaction} from "../../utils/native-api/interaction/Interaction";
 
 class Conference {
 
@@ -7,11 +12,16 @@ class Conference {
      * 新增会议
      * @returns {Promise<*>}
      */
-    static async addConference() {
-        return await Http.request({
-            url: `5d8b1812a0cda`,
+    static async addConference(addConferenceInfo) {
+        const res = await Http.request({
+            url: ApiUrlConstant.ADD_CONFERENCE,
             data: null
         });
+        if (res.code === 1) {
+            return res.data;
+        } else {
+            Interaction.fnShowToast('新增会议失败', InteractionEnum.ICON_NONE, '', InteractionEnum.DURATION, false);
+        }
     }
 
     /**
@@ -26,11 +36,10 @@ class Conference {
                 uid: uid
             }
         });
-        console.log(conferenceList);
         if (conferenceList.code === 1) {
             return conferenceList.data;
         } else {
-            InterAction.fnShowToast('会议列表加载失败！', 'none', 2000, false);
+            Interaction.fnShowToast('会议列表加载失败！', InteractionEnum.ICON_NONE, '', InteractionEnum.DURATION, false);
         }
     }
 
@@ -51,7 +60,7 @@ class Conference {
         if (currentConference.code === 1) {
             return currentConference.data
         } else {
-            InterAction.fnShowToast('获取会议详情失败！', 'none', 2000, false);
+            Interaction.fnShowToast('获取会议详情失败！', InteractionEnum.ICON_NONE, '', InteractionEnum.DURATION, false);
         }
     }
 

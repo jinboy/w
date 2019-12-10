@@ -24,7 +24,7 @@
     <view class="out-container">
         <!-- 会议列表 -->
         <view class="conference-statistic-container">
-            <block wx:for="{{conferenceStatistic}}" wx:key="{{index}}" wx:for-index="conferenceStatistic_index"
+            <block wx:for="{{conferenceStatistic}}" wx:key="index" wx:for-index="conferenceStatistic_index"
                    wx:for-item="conferenceStatistic_item">
                 <view class="conference-statistic-loactionA flex-row">
                     <view class="year-month">
@@ -36,7 +36,7 @@
                     </view>
                 </view>
                 <view class="conference-statistic-item-container">
-                    <block wx:for="{{conferenceStatistic_item.list}}" wx:key="{{index}}" wx:for-index="list_index"
+                    <block wx:for="{{conferenceStatistic_item.list}}" wx:key="index" wx:for-index="list_index"
                            wx:for-item="list_item">
                         <view class="conference-statistic-item">
                             <view class="conference-statistic-item-theme">

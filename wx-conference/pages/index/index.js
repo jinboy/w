@@ -6,8 +6,12 @@ import {
 import {
     Storage
 } from "../../utils/storage";
-import {FreeLogin} from "../../model/authentication/freeLogin";
-import {Location} from "../../model/location/location";
+import {
+    FreeLogin
+} from "../../model/authentication/freeLogin";
+import {
+    Location
+} from "../../model/location/location";
 
 const app = getApp()
 
@@ -41,7 +45,6 @@ Page({
     },
 
     async onLoad() {
-        console.log('666');
         await FreeLogin.login();
     },
 
@@ -58,7 +61,6 @@ Page({
 
         // const authCode = await System.loginSystem();// 获取钉钉免登授权码
         // const currentUser = await FreeLogin.freeLogin(authCode.authCode, app.globalData.corpId);// 用户登录并进入缓存
-        console.log('currentUser');
 
         this.setData({
             // isAdmin: currentUser.currentUser.isAdmin,
@@ -75,7 +77,7 @@ Page({
         const currentUserid = Storage.getStorageSyncByKey('user');
 
         const conferenceListByUserId = await Conference.getConferenceList(currentUserid); // 获取当前用户会议列表，因为涉及到用户签到情况
-
+        console.log('conferenceListByUserId', conferenceListByUserId);
         const nowConferenceList = conferenceListByUserId.now; // 当前会议
         const futureConferenceList = conferenceListByUserId.future; // 预备会议
         const pastConferenceList = conferenceListByUserId.past; // 当前用户历史会议
