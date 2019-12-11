@@ -1,5 +1,7 @@
 {
+  "navigationBarTitleText": "会议详情",
   "usingComponents": {
-    "tabjin-word-card": "/components/operation-detail-page/index"
+    "tabjin-word-card": "/components/conference/card-detail-word/index",
+    "tabjin-operation": "/components/detail-operation/index"
   }
 }

@@ -1,3 +1,5 @@
+/* components/detail-operation/index.wxss */
+
 .operation-container {
     position: fixed;
     bottom: 0;

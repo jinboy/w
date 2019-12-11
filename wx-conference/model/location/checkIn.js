@@ -2,7 +2,8 @@
  * 签到模型
  */
 
-import { Http } from '../utils/http';
+
+import {Http} from "../../utils/tabjin-utils/http";
 
 class CheckIn {
     /**

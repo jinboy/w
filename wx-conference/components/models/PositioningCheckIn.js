@@ -1,12 +1,14 @@
-import {InterAction} from "../../../utils/native-api/interface/interaction";
-import {Common} from "../../../utils/tabjin-utils/common";
-import {LocationUtils} from "../../../utils/native-api/location/location";
-import {LocationUtilsCustomized} from "../../../utils/tabjin-utils/location";
-import {CheckIn} from "../../../model/conference/CheckIn";
-import {Caching} from "../../../utils/native-api/caching/caching";
+/**
+ *
+ */
+import {Interaction} from "../../utils/native-api/interaction/Interaction";
+import {InteractionEnum} from "../../utils/native-api/interaction/enum/InteractionEnum";
 import {CheckInInfo} from "./checkInInfo";
+import {Caching} from "../../utils/native-api/caching/Caching";
+import {LocationUtilsCustomized} from "../../utils/tabjin-utils/location/LocationUtilsCustomized";
+import {Location} from "../../utils/native-api/location/Location";
+import {CheckIn} from "../../model/location/checkIn";
 import {OperationGroupJudger} from "./operation/operationGroupJudger";
-import {InteractionEnum} from "../../../utils/native-api/interface/InteractionEnum";
 
 class PositioningCheckIn {
     currentConference;// 当前会议
@@ -18,7 +20,7 @@ class PositioningCheckIn {
 
     async checkIn() {
         if (!this.currentConference) {// 无前会议信息
-            InterAction.fnShowToast('未获取到当前会议，请重启应用', InteractionEnum.DD_SHOW_TOAST_TYPE_EXCEPTION, InteractionEnum.DD_SHOW_TOAST_DURATION);
+            Interaction.fnShowToast('未获取到当前会议，请重启应用', InteractionEnum.ICON_NONE, '', InteractionEnum.DURATION, false);
         } else { // 当前会议非空，绑定当前用户与其参加会议的签到行为
             // TODO 首先判断当前用户是否在参加人员中，实际上不需要判断，因为会议列表是定向展示
             await this._initLocationInfo(this.currentConference);
@@ -31,7 +33,7 @@ class PositioningCheckIn {
         let longitude = parseFloat(currentLocation[0]);// 纬度
         let latitude = parseFloat(currentLocation[1]);// 经度（大）
         // 当前定位经纬度
-        const res = await LocationUtils.fnGetLocation();
+        const res = await Location.fnGetLocation();
         const currentLongitude = parseFloat(res.longitude);
         const currentLatitude = parseFloat(res.latitude);
 

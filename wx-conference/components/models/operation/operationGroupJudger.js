@@ -1,6 +1,6 @@
 import {OperationGroup} from "./operation-group";
 import {OperationButtonStatus} from "./enum";
-import {ImgUrl} from "../../../../config/imgConstant";
+import {ImgUrl} from "../../../config/imgConstant";
 
 
 class OperationGroupJudger {

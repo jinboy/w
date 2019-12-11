@@ -32,10 +32,10 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/utils/tabjin-utils" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="editing.templates" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -80,6 +80,9 @@
       <workItem from="1574916575199" duration="9134000" />
       <workItem from="1574991217213" duration="5728000" />
       <workItem from="1575943043051" duration="20313000" />
+      <workItem from="1576027036066" duration="6310000" />
+      <workItem from="1576033660410" duration="848000" />
+      <workItem from="1576035260027" duration="14720000" />
     </task>
     <servers />
   </component>
@@ -91,14 +94,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="962" y="273" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575966061174" />
-    <state x="899" y="273" key="SettingsEditor" timestamp="1575959629477">
+    <state x="899" y="273" key="SettingsEditor" timestamp="1576047351515">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="899" y="273" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575959629477" />
-    <state x="908" y="264" width="647" height="528" key="find.popup" timestamp="1575970362801">
+    <state x="899" y="273" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1576047351515" />
+    <state x="908" y="264" width="647" height="528" key="find.popup" timestamp="1576044876492">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="908" y="264" width="647" height="528" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1575970362801" />
+    <state x="908" y="264" width="647" height="528" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1576044876492" />
+    <state x="471" y="234" key="run.anything.popup" timestamp="1576054036522">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="471" y="234" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1576054036522" />
     <state x="895" y="247" width="672" height="678" key="search.everywhere.popup" timestamp="1575949952165">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

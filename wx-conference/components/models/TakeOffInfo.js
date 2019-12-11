@@ -1,10 +1,11 @@
 /**
  * 签到信息模型
  */
-import { Common } from "../../../utils/tabjin-utils/common";
-import { CheckInException } from "../../../exception/exception";
-import { InteractionEnum } from "../../../utils/native-api/interface/InteractionEnum";
-import { InterAction } from "../../../utils/native-api/interface/interaction";
+
+
+import {CheckInException} from "../../exception/exception";
+import {Interaction} from "../../utils/native-api/interaction/Interaction";
+import {InteractionEnum} from "../../utils/native-api/interaction/enum/InteractionEnum";
 
 class TakeOffInfo {
     mid;
@@ -33,20 +34,20 @@ class TakeOffInfo {
      * @private
      */
     _introspection() {
-        if (Common.isEmpty(this.mid)) {
+        if (!this.mid) {
             console.log(`${CheckInException.MID_NULL}`);
             return false;
         }
-        if (Common.isEmpty(this.uid)) {
+        if (!this.uid) {
             console.log(`${CheckInException.UID_NULL}`);
             return false;
         }
         if (!this.leaveType) {
-            InterAction.fnShowToast('请假类型不能为空', InteractionEnum.DD_SHOW_TOAST_TYPE_EXCEPTION, InteractionEnum.DD_SHOW_TOAST_DURATION);
+            Interaction.fnShowToast('请假类型不能为空', InteractionEnum.NONE, '', InteractionEnum.DURATION, false);
             return false;
         }
         if (!this.leaveReason) {
-            InterAction.fnShowToast('请假理由不能为空', InteractionEnum.DD_SHOW_TOAST_TYPE_EXCEPTION, InteractionEnum.DD_SHOW_TOAST_DURATION);
+            Interaction.fnShowToast('请假理由不能为空', InteractionEnum.NONE, '', InteractionEnum.DURATION, false);
             return false;
         }
         return true;

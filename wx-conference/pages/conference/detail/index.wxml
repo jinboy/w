@@ -115,7 +115,5 @@
 </view>
 <!-- 底部按钮 -->
 <tabjin-operation data="{{conference}}"
-                  isLeaderInDepts="{{isLeaderInDepts}}"
-                  onPackageConfereeInfo="onPackageConfereeInfo"
-                  onPackageReadInfo="onPackageReadInfo">
+                  isLeaderInDepts="{{isLeaderInDepts}}">
 </tabjin-operation>

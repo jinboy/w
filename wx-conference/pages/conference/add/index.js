@@ -1,4 +1,4 @@
-import {Agenda} from "../../../model/conference/Agenda";
+
 import {Conference} from "../../../model/conference/conference";
 import {AddConferenceInfo} from "../../../model/conference/AddConferenceInfo";
 import {Caching} from "../../../utils/native-api/caching/Caching";
@@ -6,6 +6,7 @@ import {InteractionEnum} from "../../../utils/native-api/interaction/enum/Intera
 import {Route} from "../../../utils/native-api/route/Route";
 import {Interaction as InterAction} from "../../../utils/native-api/interaction/Interaction";
 import {MeetingRoom} from "../../../model/conference/meetingRoom";
+import {Agenda} from "../../../model/conference/agenda";
 
 let dateTimePicker = require('../../../utils/dateTimePicker.js');
 const app = getApp();

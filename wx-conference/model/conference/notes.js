@@ -4,9 +4,9 @@
 
 
 import {Http} from "../../utils/tabjin-utils/http";
-import {InterAction} from "../../utils/native-api/interface/interaction";
-import {InteractionEnum} from "../../utils/native-api/interface/InteractionEnum";
 import {ApiUrlConstant} from "../../config/ApiUrlConstant";
+import {Interaction} from "../../utils/native-api/interaction/Interaction";
+import {InteractionEnum} from "../../utils/native-api/interaction/enum/InteractionEnum";
 
 class Notes {
     /**
@@ -28,7 +28,7 @@ class Notes {
         if (res.code === 1) {
             return res.data;
         } else {
-            InterAction.fnShowToast('新增会议笔记失败', InteractionEnum.DD_SHOW_TOAST_TYPE_EXCEPTION, InteractionEnum.DD_SHOW_TOAST_DURATION)
+            Interaction.fnShowToast('新增会议笔记失败', InteractionEnum.ICON_NONE, '', InteractionEnum.DURATION, false);
         }
     }
 
@@ -53,7 +53,7 @@ class Notes {
         if (res.code === 1) {
             return res.data;
         } else {
-            InterAction.fnAlert(`${res.msg}`, InteractionEnum.DD_SHOW_TOAST_TYPE_EXCEPTION, InteractionEnum.DD_SHOW_TOAST_DURATIONer);
+            Interaction.fnShowToast(`${res.msg}`, InteractionEnum.ICON_NONE, '', InteractionEnum.DURATION, false);
         }
     }
 }

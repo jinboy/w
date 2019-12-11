@@ -2,15 +2,13 @@
  * 请假模型
  */
 
-import {Common} from "../../../utils/tabjin-utils/common";
-import {InterAction} from "../../../utils/native-api/interface/interaction";
-import {LocationUtils} from "../../../utils/native-api/location/location";
-import {Caching} from "../../../utils/native-api/caching/caching";
-import {CheckIn} from "../../../model/conference/CheckIn";
 import {TakeOffInfo} from "./TakeOffInfo";
-import {InteractionEnum} from "../../../utils/native-api/interface/InteractionEnum";
-import {Navigate} from "../../../utils/native-api/interface/navigate";
-import {LocationUtilsCustomized} from "../../../utils/tabjin-utils/location";
+import {Interaction} from "../../utils/native-api/interaction/Interaction";
+import {Route} from "../../utils/native-api/route/Route";
+import {Location} from "../../utils/native-api/location/Location";
+import {Caching} from "../../utils/native-api/caching/Caching";
+import {CheckIn} from "../../model/location/checkIn";
+import {LocationUtilsCustomized} from "../../utils/tabjin-utils/location/LocationUtilsCustomized";
 
 class TakeOff {
     currentConference;
@@ -24,9 +22,6 @@ class TakeOff {
      * @param leaveReason 请假理由
      */
     constructor(currentConference, leaveType, leaveReason) {
-        console.log('currentConference', currentConference);
-        console.log('leaveType', leaveType);
-        console.log('leaveReason', leaveReason);
         if (currentConference) {
             this.currentConference = currentConference;
         }
@@ -44,9 +39,8 @@ class TakeOff {
      * @returns {Promise<void>}
      */
     async _takeOff() {
-        if (Common.isNull(this.currentConference)) {// currentConference，提示为获取到当前会议
-            // TODO 改新模型
-            InterAction.fnAlert('抱歉', '未获取到当前会议，请重启应用', '好的');
+        if (!(this.currentConference)) {// currentConference，提示为获取到当前会议
+            Interaction.fnShowToast('未获取到当前会议，请重启应用', InteractionEnum.NONE, '', InteractionEnum.DURATION, false);
         } else { //有当前会议信息，绑定当前用户与其参加会议的签到行为
             // TODO 首先判断当前用户是否在参加人员中
             await this._initLocationInfo(this.currentConference, this.leaveType, this.leaveReason);
@@ -65,7 +59,7 @@ class TakeOff {
         let longitude = parseFloat(currentLocation[0]);// 纬度
         let latitude = parseFloat(currentLocation[1]);// 经度（大）
         // 当前定位经纬度
-        const res = await LocationUtils.fnGetLocation();
+        const res = await Location.fnGetLocation();
         const currentLongitude = parseFloat(res.longitude);
         const currentLatitude = parseFloat(res.latitude);
 
@@ -83,15 +77,13 @@ class TakeOff {
             leaveType,
             leaveReason
         );
-        console.log('takeOffInfo', takeOffInfo);
         if (takeOffInfo.dataIntrospection()) {
-            // 签到对象包装成功，发送CheckIn对象进行签到
             const takeOffRes = await CheckIn.submitCheckInInfo(takeOffInfo);
-            console.log('takeOffRes', takeOffRes);
-            InterAction.fnShowToast('请假成功', InteractionEnum.DD_SHOW_TOAST_TYPE_SUCCESS, InteractionEnum.DD_SHOW_TOAST_DURATION);
-            setTimeout(function () {
-                Navigate.navigateBack(1);// 返回上一个页面
-            }, 2000);
+            // Interaction.fnShowToast('请假成功', InteractionEnum.ICON_SUCCESS, '', InteractionEnum.DURATION, false);
+            // setTimeout(function () {
+            //     Route.fnNavigateBack(1);
+            // }, 2000);
+            Route.fnNavigateBack(1);
         }
     }
 

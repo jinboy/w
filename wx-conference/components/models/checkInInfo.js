@@ -1,8 +1,8 @@
 /**
  * 签到信息模型
  */
-import {Common} from "../../../utils/tabjin-utils/common";
-import {CheckInException} from "../../../exception/exception";
+
+import {CheckInException} from "../../exception/exception";
 
 class CheckInInfo {
     mid;

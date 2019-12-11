@@ -6,7 +6,10 @@ import {Http} from "../../utils/tabjin-utils/http";
 import {Storage} from "../../utils/storage";
 import {ApiUrlConstant} from "../../config/ApiUrlConstant";
 import {InteractionEnum} from "../../utils/native-api/interaction/enum/InteractionEnum";
-import {Interaction as InterAction} from "../../utils/native-api/interaction/Interaction";
+import {Interaction} from "../../utils/native-api/interaction/Interaction";
+
+const app = getApp();
+
 
 class FreeLogin {
 
@@ -37,7 +40,7 @@ class FreeLogin {
         if (res.code === 1) {
             return res.data;
         } else {
-            InterAction.fnShowToast('抱歉，获取登录凭证失败', InteractionEnum.ICON_NONE, '', InteractionEnum.DURATION, false);
+            Interaction.fnShowToast('抱歉，获取登录凭证失败', InteractionEnum.ICON_NONE, '', InteractionEnum.DURATION, false);
             return null;
         }
     }
