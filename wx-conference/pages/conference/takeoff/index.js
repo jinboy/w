@@ -60,4 +60,4 @@ Page({
             Route.fnNavigateBack(1);
         }, 1500);
     },
-});
+}); 
